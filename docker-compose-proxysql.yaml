@@ -1,0 +1,46 @@
+#ddev-generated
+# Simple template to demonstrate proxysql
+services:
+  proxysql:
+    image: proxysql/proxysql:latest
+    container_name: ddev-${DDEV_SITENAME}-proxysql
+    ports:
+      - "6032:6032"
+      - "6033:6033"
+    volumes:
+      - "./.ddev/proxy-sql.config.cnf:/etc/proxysql.cnf"
+    # These labels ensure this service is discoverable by ddev.
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: $DDEV_APPROOT
+    networks:
+      - ddev_default
+  replica_canary:
+    <<: *replica_1
+    container_name: ddev-${DDEV_SITENAME}-replica-canary
+    command: 
+      - --server-id=4 
+      - --log-bin=mysql-bin 
+      - --binlog-format=row 
+      - --replicate-ignore-table=db.setup_modules 
+      - --replicate-ignore-table=db.core_config_data
+    depends_on:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db
+      MYSQL_USER: canary
+      MYSQL_PASSWORD: canary
+      USER: stijn
+  magento2_canary:
+    <<: *web
+    container_name: ddev-${DDEV_SITENAME}-magento2-canary
+    depends_on:
+      - proxysql
+  proxyweb:
+    image: proxyweb/proxyweb:latest
+    container_name: ddev-${DDEV_SITENAME}-proxyweb
+    ports:
+      - "5000:5000"
+    networks:
+      - ddev_default
