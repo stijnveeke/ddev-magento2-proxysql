@@ -150,26 +150,26 @@ dependencies:
 post_install_actions:
   - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
   - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+#  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
   
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+#  - docker exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 # Needs to updated to include tables for canary that are not replicated during setup:upgrade...
 
 # Shell actions that can be done during removal of the add-on.
