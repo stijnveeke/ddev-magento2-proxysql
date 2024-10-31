@@ -8,61 +8,6 @@ name: proxysql
 # DDEV environment variables can be interpolated into these actions
 # pre_install_actions are executed in the context of the target project's root directory.
 pre_install_actions:
-    - |
-        cat <<EOF >${DDEV_APPROOT}/.ddev/proxy-sql.config.cnf
-        #ddev-generated
-        datadir="/var/lib/proxysql"
-        admin_variables=
-        {
-            admin_credentials="admin:admin;cluster:cluster"
-            mysql_ifaces="0.0.0.0:6032"
-        }
-        mysql_variables=
-        {
-            threads=4
-            max_connections=2048
-            default_query_delay=0
-            default_query_timeout=36000000
-            have_compress=true
-            poll_timeout=2000
-            interfaces="0.0.0.0:6032"
-            default_schema="information_schema"
-            stacksize=1048576
-            server_version="5.5.30"
-            connect_timeout_server=3000
-            monitor_username="monitor"
-            monitor_password="monitor"
-            monitor_history=600000
-            monitor_connect_interval=60000
-            monitor_ping_interval=10000
-            monitor_read_only_interval=1500
-            monitor_read_only_timeout=500
-            ping_interval_server_msec=120000
-            ping_timeout_server=500
-            commands_stats=true
-            sessions_sort=true
-            connect_retries_on_failure=10
-            default_authentication_plugin="mysql_native_password"
-        }
-        mysql_servers =
-        (
-            { address="db:3306"; hostgroup=10; max_connections=100; max_replication_lag=5; use_ssl=false; },
-            { address="replica_1:3306"; hostgroup=20; max_connections=100; max_replication_lag=5; use_ssl=false; }
-            { address="replica_1:3306"; hostgroup=20; max_connections=100; max_replication_lag=5; use_ssl=false; }
-            { address="replica_canary:3306"; hostgroup=30; max_connections=100; max_replication_lag=5; use_ssl=false; }
-
-        )
-        mysql_users =
-        (
-            { username="db"; password="db"; default_hostgroup=10; active=true; },
-            { username="canary"; password="canary"; default_hostgroup=30; active=true; },
-        )
-        mysql_query_rules =
-        (
-
-        )
-      
-        EOF
   # - |
   #   #ddev-description:Check architecture type for incompatible arm64 type
   #   if [ "$(uname -m)" = "arm64" -o "$(uname -m)" = "aarch64" ]; then
@@ -116,6 +61,7 @@ pre_install_actions:
 project_files:
   - docker-compose.proxysql.yaml
   - config.proxysql.yaml
+  - proxy-sql-config.cnf
   # - commands/web/add-on-command
   # - commands/host/add-on-command-host
   # - web-build/Dockerfile.proxysql
