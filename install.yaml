@@ -156,12 +156,14 @@ post_install_actions:
 
   - docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
   
   - docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
   - docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
