@@ -37,25 +37,25 @@ mysql_variables=
 mysql_servers =
 (
     {
-        address="mysql-master"
+        address="db"
         port=3306
         hostgroup=1
         max_connections=200
     },
     {
-        address="mysql-slave-1"
+        address="replica_1"
         port=3306
         hostgroup=2
         max_connections=200
     },
     {
-        address="mysql-slave-2"
+        address="replica_2"
         port=3306
         hostgroup=2
         max_connections=200
     },
     {
-        address="mysql-canary"
+        address="replica_canary"
         port=3306
         hostgroup=3
         max_connections=200
@@ -65,18 +65,18 @@ mysql_servers =
 mysql_users =
 (
     {
-        username="reader"
-        password="reader"
+        username="db"
+        password="db"
         active=1
         default_hostgroup=2
-        default_schema="mydatabase"
+        default_schema="db"
     },
     {
         username="canary"
         password="canary"
         active=1
         default_hostgroup=3
-        default_schema="mydatabase"
+        default_schema="db"
     }
 )
 
