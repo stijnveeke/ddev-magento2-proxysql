@@ -16,7 +16,7 @@ services:
     networks:
       - ddev_default
   replica_canary:
-    <<: *replica_1
+    image: "${DDEV_DATABASE}"
     container_name: ddev-${DDEV_SITENAME}-replica-canary
     command: 
       - --server-id=4 
@@ -32,11 +32,6 @@ services:
       MYSQL_USER: canary
       MYSQL_PASSWORD: canary
       USER: stijn
-  magento2_canary:
-    <<: *web
-    container_name: ddev-${DDEV_SITENAME}-magento2-canary
-    depends_on:
-      - proxysql
   proxyweb:
     image: proxyweb/proxyweb:latest
     container_name: ddev-${DDEV_SITENAME}-proxyweb
