@@ -165,7 +165,8 @@ post_install_actions:
       CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
       GRANT SELECT ON sys.* TO 'monitor'@'%';
       CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';
-      REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';
+      REVOKE ALL PRIVILEGES ON db.* FROM 'db'@'%';
+      GRANT SELECT ON db.* TO 'db'@'%';
       FLUSH PRIVILEGES;
     "
 
