@@ -132,7 +132,7 @@ global_files:
   # - commands/web/add-on-command
   # - homeadditions/some-file.txt
 
-# Version constraint for DDEV that will be validated against the running DDEV executable
+# Version constraint for DDEV that will be validated against the running dockerutable
 # and prevent add-on from being installed if it doesn't validate.
 # See https://github.com/Masterminds/semver#checking-version-constraints for constraint rules.
 # Available with DDEV v1.23.4+, and works only for DDEV v1.23.4+ binaries
@@ -148,42 +148,42 @@ dependencies:
 # DDEV environment variables can be interpolated into these actions.
 # post_install_actions are executed in the context of the target project's .ddev directory.
 post_install_actions:
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
   
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "REVOKE INSERT, UPDATE, DELETE ON db.* FROM 'db'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "FLUSH PRIVILEGES;"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'canary'@'%' IDENTIFIED BY 'canary';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "GRANT SELECT ON sys.* TO 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "FLUSH PRIVILEGES;"
 # Needs to updated to include tables for canary that are not replicated during setup:upgrade...
 
 # Shell actions that can be done during removal of the add-on.
 # Files listed in project_files section will be automatically removed here if they contain #ddev-generated line.
 # removal_actions are executed in the context of the target project's .ddev directory.
 removal_actions:
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "DROP USER 'canary'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "DROP USER 'canary'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';"
-  - ddev exec -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "DROP USER 'canary'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "DROP USER 'canary'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_canary mysql -uroot -proot -e "DROP USER 'monitor'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_1 mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';"
+  - docker -it ddev-${DDEV_SITENAME}-replica_2 mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';"
 
 
   # - rm ~/.ddev/commands/web/somecommand
