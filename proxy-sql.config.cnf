@@ -79,82 +79,157 @@ mysql_users =
         default_schema="db"
     }
 )
-
 mysql_query_rules =
 (
     {
-        rule_id=1
-        active=1
-        match_pattern="^SELECT .* FOR UPDATE$"
-        destination_hostgroup=3
-        apply=1
-        username="canary"
-    },
-    {
-        rule_id=2
-        active=1
-        match_pattern="^SELECT .* FOR UPDATE$"
-        destination_hostgroup=1
-        apply=1
-    },
-    {
-        rule_id=3
-        active=1
-        match_pattern="^SELECT"
-        destination_hostgroup=3
-        apply=1
-        username="canary"
-    },
-    {
-        rule_id=4
-        active=1
-        match_pattern="^SELECT"
-        destination_hostgroup=2
-        apply=1
-    },
-    {
-        rule_id=5
-        active=1
-        match_pattern="^INSERT INTO setup_modules"
-        destination_hostgroup=3
-        apply=1
-        username="canary"
-    },
-    {
-        rule_id=6
-        active=1
-        match_pattern="^INSERT INTO"
-        destination_hostgroup=1
-        apply=1
-    },
-    {
-        rule_id=7
-        active=1
-        match_pattern="^UPDATE setup_modules"
-        destination_hostgroup=3
-        apply=1
-        username="canary"
-    },
-    {
-        rule_id=8
-        active=1
-        match_pattern="^UPDATE"
-        destination_hostgroup=1
-        apply=1
-    },
-    {
-        rule_id=9
-        active=1
-        match_pattern="^DELETE FROM setup_modules"
-        destination_hostgroup=3
-        apply=1
-        username="canary"
-    },
-    {
         rule_id=10
         active=1
-        match_pattern="^DELETE"
+        match_pattern=".*(_+)temp"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=11
+        active=1
+        match_pattern=".*TRIGGER"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=13
+        active=1
+        match_pattern=".*TABLE"
+        destination_hostgroup=3
+        apply=1
+        username="canary"
+    },
+    {
+        rule_id=14
+        active=1
+        match_pattern="^SET"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=15
+        active=1
+        match_pattern=".*INSERT INTO"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=16
+        active=1
+        match_pattern=".*UPDATE.*SET"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=17
+        active=1
+        match_pattern=".*ON DUPLICATE KEY UPDATE"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=18
+        active=1
+        match_pattern=".*CREATE TABLE"
+        destination_hostgroup=3
+        apply=1
+        re_modifiers="CASELESS"
+        username="canary"
+    },
+    {
+        rule_id=29
+        active=1
+        match_pattern=".*_template"
+        destination_hostgroup=2
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=20
+        active=1
+        match_pattern=".*(_+)temp"
         destination_hostgroup=1
         apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=21
+        active=1
+        match_pattern=".*TRIGGER"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=22
+        active=1
+        match_pattern="^SHOW"
+        destination_hostgroup=2
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=23
+        active=1
+        match_pattern=".*TABLE"
+        destination_hostgroup=1
+        apply=1
+    },
+    {
+        rule_id=24
+        active=1
+        match_pattern="^SET"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=25
+        active=1
+        match_pattern=".*INSERT INTO"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=26
+        active=1
+        match_pattern=".*UPDATE.*SET"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=27
+        active=1
+        match_pattern=".*ON DUPLICATE KEY UPDATE"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
+    },
+    {
+        rule_id=40
+        active=1
+        match_pattern=".*CREATE TABLE"
+        destination_hostgroup=1
+        apply=1
+        re_modifiers="CASELESS"
     }
 )
+
