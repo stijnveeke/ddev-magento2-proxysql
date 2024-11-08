@@ -8,6 +8,7 @@ admin_variables=
 
 mysql_variables=
 {
+    set_query_lock_on_hostgroup=0
 	threads=4
 	max_connections=2048
 	default_query_delay=0
@@ -230,6 +231,36 @@ mysql_query_rules =
         destination_hostgroup=1
         apply=1
         re_modifiers="CASELESS"
+    },
+    {
+        rule_id=11
+        active=1
+        match_pattern="^DROP TRIGGER"
+        destination_hostgroup=3
+        apply=1
+        username="canary"
+    },
+    {
+        rule_id=12
+        active=1
+        match_pattern="^DROP TRIGGER"
+        destination_hostgroup=1
+        apply=1
+    },
+    {
+        rule_id=13
+        active=1
+        match_pattern="^CREATE TRIGGER"
+        destination_hostgroup=3
+        apply=1
+        username="canary"
+    },
+    {
+        rule_id=14
+        active=1
+        match_pattern="^CREATE TRIGGER"
+        destination_hostgroup=1
+        apply=1
     }
 )
 

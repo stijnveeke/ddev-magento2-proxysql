@@ -88,7 +88,7 @@ ddev_version_constraint: ''
 
 # List of add-on names that this add-on depends on
 dependencies:
-  - https://github.com/stijnveeke/ddev-magento2-db-replication/tarball/main
+  - stijnveeke/ddev-magento2-db-replication
   # - redis
 
 
