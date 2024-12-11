@@ -55,7 +55,9 @@ check_if_proxysql_setup() {
   check_if_container_running "ddev-${PROJNAME}-replica-canary"
 }
 
-#TODO: Add test to check if the proxysql correctly redirects specific queries to the canary instance or the regular instance.
+#TODO: Add test to check if the proxysql correctly redirects specific queries to the canary instance or the regular instance. For Example (core_config_data => canary, sales_order => regular)
+#TODO: Add test to check if config is changed it redirects to the correct instance.
+#TODO: Add test to check if upgrade command is executed correctly. (Do this be enabling/disabling some modules)
 
 check_if_db_accessible() {
   credentials=${1}
@@ -81,12 +83,13 @@ teardown() {
   health_checks
 }
 
-# bats test_tags=release
-# @test "install from release" {
-#   set -eu -o pipefail
-#   cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
-#   echo "# ddev get ddev/ddev-addon-template with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
-#   ddev get ddev/ddev-addon-template
-#   ddev restart >/dev/null
-#   health_checks
-# }
+bats test_tags=release
+@test "install from release" {
+  set -eu -o pipefail
+  cd ${TESTDIR} || ( printf "unable to cd to ${TESTDIR}\n" && exit 1 )
+  echo "# ddev get ddev/ddev-addon-template with project ${PROJNAME} in ${TESTDIR} ($(pwd))" >&3
+  ddev get stijnveeke/ddev-magento2-db-replication
+  ddev get stijnveeke/ddev-magento2-proxysql
+  ddev restart >/dev/null
+  health_checks
+}

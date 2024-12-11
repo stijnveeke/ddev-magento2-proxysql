@@ -1,31 +1,3 @@
 hooks:
   post-start:
-    - exec-host: docker exec -it ddev-${DDEV_SITENAME}-replica-1 mysql -uroot -proot -e "
-        CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
-        GRANT SELECT ON sys.* TO 'monitor'@'%';
-        CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';
-        GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';
-        FLUSH PRIVILEGES;"
-    - exec-host: docker exec -it ddev-${DDEV_SITENAME}-replica-2 mysql -uroot -proot -e "
-        CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
-        GRANT SELECT ON sys.* TO 'monitor'@'%';
-        CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';
-        GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';
-        FLUSH PRIVILEGES;"
-    - exec-host: docker exec -it ddev-${DDEV_SITENAME}-db mysql -uroot -proot -e "
-        CREATE USER IF NOT EXISTS 'canary'@'%' IDENTIFIED BY 'canary';
-        GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';
-        CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
-        GRANT SELECT ON sys.* TO 'monitor'@'%';
-        CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';
-        FLUSH PRIVILEGES;"    
-    - exec-host: docker exec -it ddev-${DDEV_SITENAME}-replica-canary mysql -uroot -proot -e "
-        CREATE USER IF NOT EXISTS 'canary'@'%' IDENTIFIED BY 'canary';
-        GRANT ALL PRIVILEGES ON db.* TO 'canary'@'%';
-        CREATE USER IF NOT EXISTS 'db'@'%' IDENTIFIED BY 'db';
-        GRANT ALL PRIVILEGES ON db.* TO 'db'@'%';
-        CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'monitor';
-        GRANT SELECT ON sys.* TO 'monitor'@'%';
-        FLUSH PRIVILEGES;"
-
-    
+    - exec-host: bash ./.ddev/proxysql-setup.sh ${DDEV_SITENAME}
