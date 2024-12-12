@@ -46,7 +46,7 @@ retry_connection() {
       return 0
     fi
     echo "Attempt $attempt failed for $container. Retrying in 2 seconds..."
-    sleep 2
+    sleep 2s
     attempt=$((attempt + 1))
   done
 
