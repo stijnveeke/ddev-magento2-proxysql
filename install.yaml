@@ -62,6 +62,7 @@ project_files:
   - docker-compose.proxysql.yaml
   - config.proxysql.yaml
   - proxy-sql.config.cnf
+  - proxyweb.yaml
   # - commands/web/add-on-command
   # - commands/host/add-on-command-host
   # - web-build/Dockerfile.proxysql
