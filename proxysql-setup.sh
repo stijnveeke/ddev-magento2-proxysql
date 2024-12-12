@@ -1,4 +1,5 @@
 #!/bin/bash
+#ddev-generated
 
 echo "Starting setup for database containers..."
 if [ "$#" -ne 1 ]; then
