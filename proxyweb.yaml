@@ -1,3 +1,4 @@
+#ddev-generated
 global:
   hide_tables: ['']
   default_server: "proxysql"
