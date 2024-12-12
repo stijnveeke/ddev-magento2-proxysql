@@ -40,4 +40,4 @@ services:
     networks:
       - ddev_default
     volumes:
-      - "./proxyweb.yaml:app/config/config.yml"
+      - "./proxyweb.yaml:/app/config/config.yml"
