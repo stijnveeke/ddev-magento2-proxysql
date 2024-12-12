@@ -39,3 +39,5 @@ services:
       - "5000:5000"
     networks:
       - ddev_default
+    volumes:
+      -"./proxyweb.yaml:app/config/config.yaml"
